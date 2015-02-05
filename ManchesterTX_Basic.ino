@@ -24,12 +24,12 @@
 #define TX_PIN 5  //pin where your transmitter is connected
 #define LED_PIN 13 //pin for blinking LED
 
-uint8_t moo = 1; //last led status
+uint8_t led = 1; //last led status
 uint16_t transmit_data = 0;
 
 void setup() {
   pinMode(LED_PIN, OUTPUT);
-  digitalWrite(LED_PIN, moo);
+  digitalWrite(LED_PIN, led);
   man.workAround1MhzTinyCore(); //add this in order for transmitter to work with 1Mhz Attiny85/84
   man.setupTransmit(TX_PIN, MAN_1200);
 }
@@ -37,6 +37,7 @@ void setup() {
 void loop() {
   man.transmit(transmit_data);
   transmit_data++;
-  moo = ++moo % 2;
-  digitalWrite(LED_PIN, moo);
+  led = ++led % 2;
+  digitalWrite(LED_PIN, led);
+  delay(3000); //don't overload the spectrum. be nice! :)
 }

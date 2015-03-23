@@ -24,11 +24,11 @@
 #define RX_PIN 4
 #define LED_PIN 13
 
-uint8_t moo = 1;
+uint8_t led = 1;
 
 void setup() {
   pinMode(LED_PIN, OUTPUT);  
-  digitalWrite(LED_PIN, moo);
+  digitalWrite(LED_PIN, led);
   man.setupReceive(RX_PIN, MAN_1200);
   man.beginReceive();
 }
@@ -37,8 +37,8 @@ void loop() {
   if (man.receiveComplete()) {
     uint16_t m = man.getMessage();
     man.beginReceive(); //start listening for next message right after you retrieve the message
-    moo = ++moo % 2;
-    digitalWrite(LED_PIN, moo);
+    led = ++led % 2;
+    digitalWrite(LED_PIN, led);
   }
 }
 
